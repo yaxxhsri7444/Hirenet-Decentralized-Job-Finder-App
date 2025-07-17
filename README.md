@@ -2,10 +2,6 @@ Hirenet - Decentralized Job Finder App
 
 Hirenet is a full-stack decentralized job portal that connects job seekers and recruiters directly without intermediaries. It enables transparent, secure, and efficient job matching using modern web technologies.
 
-🔗 Live Demo
-
-🚧 Coming Soon...
-
 
 ---
 
