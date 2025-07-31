@@ -1,0 +1,76 @@
+.maincontaier {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+.containerTop {
+  background-color: #000;
+  color: #fff;
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.containerTop h4 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.container h2 {
+  font-weight: 600;
+  color: #123458;
+  text-align: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #f1efec, #dcd2c8);
+  border-radius: 15px;
+  transition: transform 0.2s ease-in-out;
+  max-width: 600px;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-body {
+  padding: 1.5rem;
+  border-left: #000 3px solid;
+  min-width: 250px;
+  min-height: 150px;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  border-radius: 20px;
+  font-size: 1rem;
+  padding: 8px 20px;
+  background: #123456;
+  color: #fff;
+  border: none;
+  transition: background 0.3s ease-in-out;
+}
+
+.btn:hover {
+  background: #fff;
+  text-decoration: none;
+  color : #123456;
+  border:1px solid #123456;
+}

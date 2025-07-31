@@ -1,0 +1,13 @@
+<h3>Phone Verification</h3>
+
+<input (ngModel)="phone" placeholder="Enter phone number" />
+<button (click)="sentOtp()">Send OTP</button>
+
+<div *ngIf="isOtpSent">
+  <input (ngModel)="enteredOtp" placeholder="Enter OTP" />
+  <button (click)="verifyOtp()">Verify</button>
+</div>
+
+<div *ngIf="isVerified">
+  ✅ Phone number verified!
+</div>

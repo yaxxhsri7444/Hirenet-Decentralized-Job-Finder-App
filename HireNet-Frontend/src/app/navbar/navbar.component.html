@@ -1,0 +1,19 @@
+<nav class="navbar custom-navbar px-3">
+  <button class="btn icon-btn me-3" (click)="onToggleSidebar()">
+    <i class="bi bi-layout-sidebar-inset-reverse"></i>
+  </button>
+
+  <span class="navbar-brand mb-0 fw-bold">HireNet <span class="ms-1">🤖</span></span>
+
+  <ul class="navbar-nav ms-auto d-flex flex-row align-items-center gap-4">
+    <li class="nav-item" *ngFor="let link of navLinks">
+      <a class="nav-link" [routerLink]="link.path">{{ link.label }}</a>
+    </li>
+  </ul>
+
+  <div class="auth-buttons ms-3 d-flex gap-2">
+    <button class="btn btn-outline-light" *ngIf="!isloggedIn" (click)="login()">Login</button>
+    <button class="btn btn-outline-light" *ngIf="!isloggedIn" (click)="register()">Register</button>
+    <button class="btn btn-light text-dark" *ngIf="isloggedIn" (click)="logout()">Logout</button>
+  </div>
+</nav>

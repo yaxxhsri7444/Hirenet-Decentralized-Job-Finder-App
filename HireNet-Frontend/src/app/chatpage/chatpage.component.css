@@ -1,0 +1,46 @@
+.chat-wrapper {
+  height: 100% !important;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.chat-window div {
+  padding: 6px 12px;
+  border-radius: 10px;
+  background-color: #f1f1f1;
+  margin-bottom: 8px;
+  max-width: 70%;
+}
+
+
+.chat-users {
+  border-right: 1px solid #ddd;
+  background: #fff;
+}
+
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-messages {
+  overflow-y: auto;
+  background: #f8f9fa;
+}
+
+.chat-messages span {
+  max-width: 60%;
+  word-wrap: break-word;
+}
+
+.chat-header {
+  background-color: #123458;
+  color: white;
+  padding: 15px;
+  font-weight: bold;
+}
+
+.chat-input {
+  background: #fff;
+  border-top: 1px solid #ddd;
+}

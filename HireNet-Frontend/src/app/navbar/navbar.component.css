@@ -1,0 +1,45 @@
+.custom-navbar {
+  background-color: #123458;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #f1efec;
+}
+
+.navbar-brand {
+  font-size: 1.6rem;
+  color: #f1efec;
+}
+
+.nav-link {
+  color: #f1efec;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.icon-btn i {
+  color: #f1efec;
+  font-size: 28px;
+}
+
+.auth-buttons .btn {
+  font-weight: 500;
+  border-radius: 4px;
+}
+
+.auth-buttons .btn-light:hover {
+  background-color: #ffffff;
+  color: #123458;
+}
+
+.auth-buttons .btn-outline-light:hover {
+  background-color: #f1efec;
+  color: #123458;
+}

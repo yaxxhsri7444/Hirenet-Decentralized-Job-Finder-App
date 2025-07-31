@@ -1,0 +1,31 @@
+.card {
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+h2{
+  color: #123458;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.card-header {
+  background-color: #123458;
+  color: white;
+  font-weight: bold;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+button{
+  background-color: #123458;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.Card-body {
+  color: #123458;
+}

@@ -1,0 +1,43 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- Contacts -->
+    <div class="col-md-3 border-end">
+      <h5 class="mb-3">Contacts</h5>
+      <ul class="list-group">
+        <li
+          *ngFor="let contact of contact"
+          (click)="openchat(contact)"
+          class="list-group-item list-group-item-action"
+        >
+          {{ contact.name }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Chat -->
+    <div class="col-md-9">
+      <div class="card h-100">
+        <div class="card-header bg-dark text-white">
+          Chat with {{ selectedUser?.name || '...' }}
+        </div>
+        <div class="card-body chat-window" style="height: 400px; overflow-y: scroll;">
+          <div *ngFor="let msg of message" class="mb-2">
+            <strong [ngClass]="{'text-primary': msg.senderId === authService.getUserId()}">
+              {{ msg.senderId === authService.getUserId() ? 'You' : selectedUser.name }}
+            </strong>
+            : {{ msg.text }}
+          </div>
+        </div>
+        <div class="card-footer d-flex">
+          <input
+            type="text"
+            class="form-control me-2"
+            placeholder="Type a message..."
+            (ngModel)="messageText"
+          />
+          <button class="btn btn-primary" (click)="sendMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

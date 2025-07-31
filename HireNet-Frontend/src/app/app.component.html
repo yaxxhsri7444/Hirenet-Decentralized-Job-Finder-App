@@ -1,0 +1,12 @@
+<div class="nav-container" [ngClass]="{ expanded: isSidebarVisible }">
+  <app-navbar (toggleSidebar)="toggleSidebar()"></app-navbar>
+</div>
+<div class="layout-wrapper">
+  <div class="sidebar-container" [ngClass]="{ closed: !isSidebarVisible }">
+    <app-sidebar></app-sidebar>
+  </div>
+
+  <div class="main-container" [ngClass]="{ expanded: isSidebarVisible }">
+    <router-outlet></router-outlet>
+  </div>
+</div>

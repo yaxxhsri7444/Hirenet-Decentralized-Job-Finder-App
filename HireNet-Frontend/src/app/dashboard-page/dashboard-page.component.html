@@ -1,0 +1,70 @@
+<div class="container-fluid p-4">
+  <h2 class="mb-4 fw-bold">Welcome, Saksham 👋</h2>
+  <a
+    *ngIf="resumeUrl"
+    [href]="resumeUrl"
+    target="_blank"
+    class="btn btn-outline-primary mt-2"
+  >
+    View Resume
+  </a>
+
+  <!-- Stats Cards -->
+  <div class="row g-4">
+    <div class="col-md-3" *ngFor="let stat of stats">
+      <div class="card text-white h-100" [ngClass]="stat.color">
+        <div class="card-body">
+          <h5 class="card-title">{{ stat.title }}</h5>
+          <p class="display-6">{{ stat.value }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts + Applications -->
+  <div class="row mt-5">
+    <div class="col-md-8">
+      <div class="card h-100">
+        <div class="card-header bg-dark text-white">Job Application Trend</div>
+        <div class="Card-body">
+          <canvas
+            baseChart
+            [data]="chartData"
+            [labels]="chartLabels"
+            [type]="'bar'"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resume Card -->
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-header bg-dark text-white">Resume Status</div>
+        <div class="card-body text-center">
+          <p class="card-text">Keep your resume updated!</p>
+          <button class="btn btn-primary">
+            <a routerLink="/resume-upload" class="text-white">Upload Resume</a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Applications Table -->
+  <div class="row mt-4">
+    <div class="col">
+      <div class="card">
+        <div class="card-header bg-dark text-white">Recent Applications</div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let job of recentApplications">
+              {{ job }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

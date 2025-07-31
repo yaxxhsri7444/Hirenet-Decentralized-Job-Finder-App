@@ -1,0 +1,96 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+          <h4 class="mb-0">My Profile</h4>
+          <button class="btn btn-outline-light btn-sm" (click)="editMode = !editMode">
+            {{ editMode ? 'Cancel' : 'Edit' }}
+          </button>
+        </div>
+
+        <div class="card-body">
+          <form *ngIf="editMode" (ngSubmit)="updateProfile()">
+            <!-- Common Fields -->
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input [(ngModel)]="user.name" name="name" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input [(ngModel)]="user.email" name="email" class="form-control" readonly />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Location</label>
+              <input [(ngModel)]="user.location" name="location" class="form-control" />
+            </div>
+
+            <!-- Jobseeker Only -->
+            <div *ngIf="user.role === 'jobseeker'">
+              <div class="mb-3">
+                <label class="form-label">Skills (comma separated)</label>
+                <input [(ngModel)]="user.skillsString" name="skills" class="form-control" />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Experience (years)</label>
+                <input [(ngModel)]="user.experience" name="experience" type="number" class="form-control" />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Education</label>
+                <input [(ngModel)]="user.education" name="education" class="form-control" />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Resume URL</label>
+                <input [(ngModel)]="user.resume" name="resume" class="form-control" />
+              </div>
+            </div>
+
+            <!-- Employer Only -->
+            <div *ngIf="user.role === 'employer'">
+              <div class="mb-3">
+                <label class="form-label">Company Name</label>
+                <input [(ngModel)]="user.companyName" name="companyName" class="form-control" />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Company Website</label>
+                <input [(ngModel)]="user.companyWebsite" name="companyWebsite" class="form-control" />
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+
+          <!-- Read Mode -->
+          <div *ngIf="!editMode">
+            <p><strong>Name:</strong> {{ user.name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Location:</strong> {{ user.location || 'Not specified' }}</p>
+
+            <div *ngIf="user.role === 'jobseeker'">
+              <p><strong>Skills:</strong> {{ user.skills?.join(', ') || 'N/A' }}</p>
+              <p><strong>Experience:</strong> {{ user.experience || 'N/A' }} years</p>
+              <p><strong>Education:</strong> {{ user.education || 'N/A' }}</p>
+              <p><strong>Resume:</strong> 
+                <a [href]="user.resume" target="_blank" *ngIf="user.resume">View Resume</a>
+                <span *ngIf="!user.resume">Not uploaded</span>
+              </p>
+            </div>
+
+            <div *ngIf="user.role === 'employer'">
+              <p><strong>Company Name:</strong> {{ user.companyName || 'N/A' }}</p>
+              <p><strong>Company Website:</strong> 
+                <a [href]="user.companyWebsite" target="_blank">{{ user.companyWebsite || 'N/A' }}</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
