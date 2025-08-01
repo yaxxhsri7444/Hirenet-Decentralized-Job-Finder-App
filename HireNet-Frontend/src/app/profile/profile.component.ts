@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit{
+
+
   user : any = {};
   editMode: boolean = false;
 
@@ -36,5 +38,12 @@ export class ProfileComponent implements OnInit{
       },
       error: (err) => console.error('Error updating profile:', err)
     });
+  }
+
+  toggleEdit() {
+    this.editMode = !this.editMode;
+    if (!this.editMode) {
+      this.fetchUserProfile(); // Reset to original data if exiting edit mode
+    }
   }
 }

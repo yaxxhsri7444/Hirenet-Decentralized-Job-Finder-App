@@ -7,14 +7,14 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-jobs',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './jobs.component.html',
-  styleUrl: './jobs.component.css'
+  styleUrl: './jobs.component.css',
 })
 export class JobsComponent {
   jobs: any[] = [];
   loading: boolean = true;
-  constructor(private jobService :jobService) {}
+  constructor(private jobService: jobService) {}
 
   ngOnInit() {
     this.fetchJobs();
@@ -23,14 +23,13 @@ export class JobsComponent {
   fetchJobs() {
     this.jobService.getJobs().subscribe({
       next: (res) => {
-        this.jobs = res;
+        this.jobs = res.jobs; // ✅ Access 'jobs' from the response
         this.loading = false;
       },
       error: (err) => {
         console.error('❌ Error loading jobs:', err);
         this.loading = false;
-      }
+      },
     });
   }
-
 }

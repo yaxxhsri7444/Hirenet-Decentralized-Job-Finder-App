@@ -40,10 +40,14 @@ exports.getAllJobs = async (req, res) => {
 // Get a job by ID
 exports.getmyjobs = async (req, res) => {
   try {
-    const jobs = await Job.find().populate("postedBy", "name email");
+    const jobs = await Job.findById(req.params.id).populate("postedBy", "name email");
+    if (!jobs) {
+      return res.status(404).json({
+        message: "Job not found",
+      });
+    }
     res.status(200).json({
-      message: "Job fetched successfully",
-      job,
+      message: "Job fetched successfully", jobs
     });
   } catch (err) {
     res.status(500).json({

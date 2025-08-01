@@ -1,44 +1,57 @@
-<div class="max-w-xl mx-auto p-4 bg-white shadow rounded-xl">
-  <h2 class="text-2xl font-bold mb-4">Post a New Job</h2>
+<div class="container my-5">
+  <div class="card shadow-lg border-0 rounded-4 mx-auto bg-light" style="max-width: 720px;">
+    <div class="card-body p-5">
+      <div class="text-center mb-4">
+        <i class="bi bi-briefcase-fill text-primary fs-1"></i>
+        <h2 class="fw-bold mt-2">Post a New Job</h2>
+        <p class="text-muted">Fill the form below to list a job opening</p>
+      </div>
 
-  <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
-    <div class="mb-3">
-      <label class="block">Job Title</label>
-      <input type="text" class="w-full p-2 border rounded" formControlName="title" />
+      <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Job Title</label>
+          <input type="text" class="form-control form-control-lg" formControlName="title" placeholder="Enter job title">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Company</label>
+          <input type="text" class="form-control form-control-lg" formControlName="company" placeholder="Company name">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Description</label>
+          <textarea class="form-control form-control-lg" rows="4" formControlName="description" placeholder="Job description"></textarea>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-semibold">Salary (in ₹)</label>
+            <input type="number" class="form-control form-control-lg" formControlName="salary" placeholder="e.g. 50000">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-semibold">Location</label>
+            <input type="text" class="form-control form-control-lg" formControlName="location" placeholder="City, Region">
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-semibold">Job Type</label>
+          <select class="form-select form-select-lg" formControlName="type">
+            <option selected disabled>Select type</option>
+            <option>Full-time</option>
+            <option>Part-time</option>
+            <option>Remote</option>
+            <option>Internship</option>
+          </select>
+        </div>
+
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary btn-lg shadow-sm" [disabled]="isSubmitting">
+            <i class="bi bi-upload me-2"></i>
+            {{ isSubmitting ? 'Posting...' : 'Post Job' }}
+          </button>
+        </div>
+      </form>
     </div>
-
-    <div class="mb-3">
-      <label class="block">Company</label>
-      <input type="text" class="w-full p-2 border rounded" formControlName="company" />
-    </div>
-
-    <div class="mb-3">
-      <label class="block">Description</label>
-      <textarea class="w-full p-2 border rounded" rows="4" formControlName="description"></textarea>
-    </div>
-
-    <div class="mb-3">
-      <label class="block">Salary (in ₹)</label>
-      <input type="number" class="w-full p-2 border rounded" formControlName="salary" />
-    </div>
-
-    <div class="mb-3">
-      <label class="block">Location</label>
-      <input type="text" class="w-full p-2 border rounded" formControlName="location" />
-    </div>
-
-    <div class="mb-3">
-      <label class="block">Job Type</label>
-      <select class="w-full p-2 border rounded" formControlName="type">
-        <option>Full-time</option>
-        <option>Part-time</option>
-        <option>Remote</option>
-        <option>Internship</option>
-      </select>
-    </div>
-
-    <button class="px-4 py-2 bg-green-600 text-white rounded" [disabled]="isSubmitting">
-      {{ isSubmitting ? 'Posting...' : 'Post Job' }}
-    </button>
-  </form>
+  </div>
 </div>

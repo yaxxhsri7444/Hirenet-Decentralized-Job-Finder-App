@@ -38,3 +38,17 @@ exports.getContacts = async (req, res) => {
     res.status(500).json({ message: "Error fetching contacts", error: error.message });
   }
 };
+
+exports.sendMessage = async (req, res) => {
+  try {
+    const { jobId, senderId, receiverId, message } = req.body;
+
+    const newMessage = new Message({ jobId, senderId, receiverId, message });
+    await newMessage.save();
+
+    res.status(201).json({ message: 'Message sent successfully', data: newMessage });
+  } catch (error) {
+    res.status(500).json({ message: 'Error sending message', error });
+  }
+};
+

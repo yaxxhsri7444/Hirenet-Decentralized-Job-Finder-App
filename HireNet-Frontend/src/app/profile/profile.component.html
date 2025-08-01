@@ -1,96 +1,113 @@
-<div class="container mt-5">
+<div class="container mt-5" *ngIf="user; else loadingTemplate">
   <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card shadow-sm">
-        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+    <div class="col-md-10 col-lg-8">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
           <h4 class="mb-0">My Profile</h4>
-          <button class="btn btn-outline-light btn-sm" (click)="editMode = !editMode">
-            {{ editMode ? 'Cancel' : 'Edit' }}
+          <button class="btn btn-light btn-sm" (click)="toggleEdit()">
+            {{ editMode ? 'Cancel' : 'Edit Profile' }}
           </button>
         </div>
 
         <div class="card-body">
-          <form *ngIf="editMode" (ngSubmit)="updateProfile()">
-            <!-- Common Fields -->
-            <div class="mb-3">
-              <label class="form-label">Name</label>
-              <input [(ngModel)]="user.name" name="name" class="form-control" required />
+          <!-- Edit Mode Form -->
+          <form *ngIf="editMode" (ngSubmit)="updateProfile()" #profileForm="ngForm" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <input [(ngModel)]="user.name" name="name" class="form-control" required />
+                <div class="text-danger" *ngIf="profileForm.submitted && !user.name">Name is required</div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input [(ngModel)]="user.email" name="email" class="form-control" readonly />
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Location</label>
+                <input [(ngModel)]="user.location" name="location" class="form-control" />
+              </div>
+
+              <!-- Jobseeker Fields -->
+              <ng-container *ngIf="user.role === 'jobseeker'">
+                <div class="col-md-6">
+                  <label class="form-label">Skills (comma separated)</label>
+                  <input [(ngModel)]="user.skillsString" name="skills" class="form-control" />
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Experience (years)</label>
+                  <input [(ngModel)]="user.experience" name="experience" type="number" class="form-control" />
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Education</label>
+                  <input [(ngModel)]="user.education" name="education" class="form-control" />
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Resume URL</label>
+                  <input [(ngModel)]="user.resume" name="resume" class="form-control" />
+                </div>
+              </ng-container>
+
+              <!-- Employer Fields -->
+              <ng-container *ngIf="user.role === 'employer'">
+                <div class="col-md-6">
+                  <label class="form-label">Company Name</label>
+                  <input [(ngModel)]="user.companyName" name="companyName" class="form-control" />
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Company Website</label>
+                  <input [(ngModel)]="user.companyWebsite" name="companyWebsite" class="form-control" />
+                </div>
+              </ng-container>
             </div>
 
-            <div class="mb-3">
-              <label class="form-label">Email</label>
-              <input [(ngModel)]="user.email" name="email" class="form-control" readonly />
+            <div class="mt-4 d-flex justify-content-end">
+              <button type="submit" class="btn btn-success me-2">Save Changes</button>
+              <button type="button" class="btn btn-secondary" (click)="toggleEdit()">Cancel</button>
             </div>
-
-            <div class="mb-3">
-              <label class="form-label">Location</label>
-              <input [(ngModel)]="user.location" name="location" class="form-control" />
-            </div>
-
-            <!-- Jobseeker Only -->
-            <div *ngIf="user.role === 'jobseeker'">
-              <div class="mb-3">
-                <label class="form-label">Skills (comma separated)</label>
-                <input [(ngModel)]="user.skillsString" name="skills" class="form-control" />
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Experience (years)</label>
-                <input [(ngModel)]="user.experience" name="experience" type="number" class="form-control" />
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Education</label>
-                <input [(ngModel)]="user.education" name="education" class="form-control" />
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Resume URL</label>
-                <input [(ngModel)]="user.resume" name="resume" class="form-control" />
-              </div>
-            </div>
-
-            <!-- Employer Only -->
-            <div *ngIf="user.role === 'employer'">
-              <div class="mb-3">
-                <label class="form-label">Company Name</label>
-                <input [(ngModel)]="user.companyName" name="companyName" class="form-control" />
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Company Website</label>
-                <input [(ngModel)]="user.companyWebsite" name="companyWebsite" class="form-control" />
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Save Changes</button>
           </form>
 
-          <!-- Read Mode -->
+          <!-- Read Mode View -->
           <div *ngIf="!editMode">
-            <p><strong>Name:</strong> {{ user.name }}</p>
-            <p><strong>Email:</strong> {{ user.email }}</p>
-            <p><strong>Location:</strong> {{ user.location || 'Not specified' }}</p>
+            <div class="mb-3"><strong>Name:</strong> {{ user.name }}</div>
+            <div class="mb-3"><strong>Email:</strong> {{ user.email }}</div>
+            <div class="mb-3"><strong>Location:</strong> {{ user.location || 'Not specified' }}</div>
 
-            <div *ngIf="user.role === 'jobseeker'">
-              <p><strong>Skills:</strong> {{ user.skills?.join(', ') || 'N/A' }}</p>
-              <p><strong>Experience:</strong> {{ user.experience || 'N/A' }} years</p>
-              <p><strong>Education:</strong> {{ user.education || 'N/A' }}</p>
-              <p><strong>Resume:</strong> 
-                <a [href]="user.resume" target="_blank" *ngIf="user.resume">View Resume</a>
+            <ng-container *ngIf="user.role === 'jobseeker'">
+              <div class="mb-3"><strong>Skills:</strong> {{ user.skills?.join(', ') || 'N/A' }}</div>
+              <div class="mb-3"><strong>Experience:</strong> {{ user.experience || 'N/A' }} years</div>
+              <div class="mb-3"><strong>Education:</strong> {{ user.education || 'N/A' }}</div>
+              <div class="mb-3">
+                <strong>Resume:</strong>
+                <a *ngIf="user.resume" [href]="user.resume" target="_blank">View Resume</a>
                 <span *ngIf="!user.resume">Not uploaded</span>
-              </p>
-            </div>
+              </div>
+            </ng-container>
 
-            <div *ngIf="user.role === 'employer'">
-              <p><strong>Company Name:</strong> {{ user.companyName || 'N/A' }}</p>
-              <p><strong>Company Website:</strong> 
-                <a [href]="user.companyWebsite" target="_blank">{{ user.companyWebsite || 'N/A' }}</a>
-              </p>
-            </div>
+            <ng-container *ngIf="user.role === 'employer'">
+              <div class="mb-3"><strong>Company Name:</strong> {{ user.companyName || 'N/A' }}</div>
+              <div class="mb-3">
+                <strong>Company Website:</strong>
+                <a *ngIf="user.companyWebsite" [href]="user.companyWebsite" target="_blank">{{ user.companyWebsite }}</a>
+                <span *ngIf="!user.companyWebsite">Not provided</span>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Loading Template -->
+<ng-template #loadingTemplate>
+  <div class="text-center my-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-3">Loading profile...</p>
+  </div>
+</ng-template>

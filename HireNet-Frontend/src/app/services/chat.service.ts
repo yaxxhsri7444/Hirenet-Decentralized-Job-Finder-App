@@ -4,6 +4,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthUserService } from './auth-user.service';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({ providedIn: 'root' })
 export class ChatService {
@@ -34,6 +35,17 @@ export class ChatService {
     return this.http.get<any[]>(`${this.apiUrl}/messages/${conversationId}`, {
       headers: this.getHeaders(),
     });
+  }
+  
+  sendMessagebyjob(messageData: {
+    jobId: string;
+    senderId: string;
+    receiverId: string;
+    message: string;
+  }): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.apiUrl}/send`, messageData, { headers });
   }
 
   sendMessage(data: { receiverId: string; content: string }) {

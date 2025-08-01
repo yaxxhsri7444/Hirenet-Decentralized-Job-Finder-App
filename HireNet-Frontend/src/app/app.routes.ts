@@ -10,6 +10,7 @@ import { ResumeUploadComponent } from './resume-upload/resume-upload.component';
 import { ProfileComponent } from './profile/profile.component';
 import { JobCreateComponent } from './job-create/job-create.component';
 import { JobDetailComponent } from './job-detail/job-detail.component';
+import { AboutComponent } from './about/about.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -20,8 +21,9 @@ export const routes: Routes = [
   { path: 'chats', component:ChatpageComponent },
   { path: 'resume-upload', component:ResumeUploadComponent },
   { path: 'profile', component:ProfileComponent },
-  {path:'job/create', component:JobCreateComponent, canActivate: [authGuard]},
+  {path:'create', component:JobCreateComponent, canActivate: [authGuard]},
   { path: 'jobs/:id', component: JobDetailComponent },
+  {path:'about', component: AboutComponent},
   {
     path: 'dashboard',
     component: DashboardPageComponent,
