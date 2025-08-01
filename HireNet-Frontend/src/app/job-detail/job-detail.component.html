@@ -1,0 +1,20 @@
+<div *ngIf="loading" class="text-center py-10">Loading job details...</div>
+
+<div *ngIf="!loading && job" class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-xl">
+  <h1 class="text-3xl font-bold text-blue-800">{{ job.title }}</h1>
+  <p class="text-gray-600 text-lg mb-2">{{ job.company }} • {{ job.type }}</p>
+
+  <p class="text-gray-500 text-sm mb-4">Location: {{ job.location }}</p>
+  <p class="text-green-600 text-sm mb-4">Salary: ₹{{ job.salary | number }}</p>
+
+  <hr class="my-4" />
+
+  <h2 class="text-xl font-semibold mb-2">Job Description</h2>
+  <p class="text-gray-700 whitespace-pre-line">{{ job.description }}</p>
+
+  <hr class="my-4" />
+
+  <button class="mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+    Apply Now
+  </button>
+</div>

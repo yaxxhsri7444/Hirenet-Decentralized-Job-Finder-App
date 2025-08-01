@@ -1,0 +1,44 @@
+<div class="max-w-xl mx-auto p-4 bg-white shadow rounded-xl">
+  <h2 class="text-2xl font-bold mb-4">Post a New Job</h2>
+
+  <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label class="block">Job Title</label>
+      <input type="text" class="w-full p-2 border rounded" formControlName="title" />
+    </div>
+
+    <div class="mb-3">
+      <label class="block">Company</label>
+      <input type="text" class="w-full p-2 border rounded" formControlName="company" />
+    </div>
+
+    <div class="mb-3">
+      <label class="block">Description</label>
+      <textarea class="w-full p-2 border rounded" rows="4" formControlName="description"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="block">Salary (in ₹)</label>
+      <input type="number" class="w-full p-2 border rounded" formControlName="salary" />
+    </div>
+
+    <div class="mb-3">
+      <label class="block">Location</label>
+      <input type="text" class="w-full p-2 border rounded" formControlName="location" />
+    </div>
+
+    <div class="mb-3">
+      <label class="block">Job Type</label>
+      <select class="w-full p-2 border rounded" formControlName="type">
+        <option>Full-time</option>
+        <option>Part-time</option>
+        <option>Remote</option>
+        <option>Internship</option>
+      </select>
+    </div>
+
+    <button class="px-4 py-2 bg-green-600 text-white rounded" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Posting...' : 'Post Job' }}
+    </button>
+  </form>
+</div>

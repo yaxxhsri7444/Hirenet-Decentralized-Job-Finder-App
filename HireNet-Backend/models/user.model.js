@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },  
     password: { type: String, required: true },
-    role: { type: String, enum: ["jobseeker", "employer"], default: "jobseeker" },
+    role: { type: String, enum: ["jobseeker", "employer","recruiter"], default: "jobseeker" },
     skills: { type: [String], default: [] },
     experience: { type: Number, default: 0 },   
     education: { type: String, default: "" },

@@ -69,17 +69,26 @@ export class ChatpageComponent implements OnInit {
   }
 
   sendMessage() {
-    const senderId = this.authservice.getUserId();
     const receiverId = this.selectedUser._id;
 
     const msg = {
-      senderId,
       receiverId,
-      text: this.messageText,
+      content: this.messageText,
     };
 
-    this.chatservice.sendMessage(msg);
-    this.message.push(msg);
+    this.chatservice.sendMessage(msg).subscribe({
+      next: (res: any) => {
+        this.message.push(res.message);
+      },
+      error: (err) => {
+        console.error('❌ Failed to send message', err);
+      },
+    });
+    this.message.push({
+      senderId: this.authservice.getUserId(),
+      receiverId: receiverId,
+      text: this.messageText,
+    });
     this.messageText = '';
   }
 }

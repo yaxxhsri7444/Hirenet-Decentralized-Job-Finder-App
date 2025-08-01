@@ -4,23 +4,24 @@
   </div>
   <div class="container mt-4">
     <div class="row row-cols-1 row-cols-md-2 g-4">
-      <!-- <div class="col" *ngFor="let job of jobs"> -->
-      <div class="col">
+      <div *ngIf="loading" class="text-gray-500">Loading jobs...</div>
+      <div *ngIf="!loading && jobs.length === 0" class="text-red-500">
+        No jobs found.
+      </div>
+
+      <div class="col" *ngIf="!loading && jobs.length > 0">
+      <div class="col"  *ngFor="let job of jobs">
         <div class="card shadow-sm border-0 h-100">
           <div class="card-body">
-            <!-- <h5 class="card-title">{{ job.title }}</h5> -->
-            <h5 class="card-title">title</h5>
-            <!-- <p class="card-text text-muted">
+            <h5 class="card-title">{{ job.title }}</h5>
+            <p class="card-text text-muted">
               {{ job.company }} | {{ job.location }}
-            </p> -->
-            <p class="card-text text-muted">company | location</p>
-            <!-- <p class="card-text">{{ job.description | slice : 0 : 100 }}...</p> -->
-            <p class="card-text">description | slice : 0 : 100...</p>
-            <!-- <a
-              [routerLink]="['/jobs', job._id]"
-              class="btn btn-outline-primary btn-sm"
-              >View Details</a> -->
-            <a class="btn btn-sm">View Details</a>
+            </p>
+            <p class="card-text">{{ job.description | slice : 0 : 100 }}...</p>
+            <a
+            class="btn btn-outline-primary btn-sm"
+            >View Details</a>
+            <!-- [routerLink]="['/jobs', job._id]" -->
           </div>
         </div>
       </div>

@@ -1,49 +1,54 @@
+
+
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { io, Socket } from 'socket.io-client';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { AuthUserService } from './auth-user.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ChatService {
-  private socket: Socket;
-  private readonly SOCKET_URL = 'http://localhost:5000';
-
-  constructor(private http: HttpClient) {
-    this.socket = io(this.SOCKET_URL, {
-      withCredentials: true, // for cookie/token auth if used
+  receiveMessage(){
+    return this.http.get<any[]>(`${this.apiUrl}/receive`, {
+      headers: this.getHeaders(),
     });
   }
 
-  // 👥 Get contacts
-  getContacts(): Observable<any> {
-    return this.http.get(`${this.SOCKET_URL}/chat/contacts`);
-  }
 
-  // 📜 Get messages between logged-in user and a contact
-  getMessages(userId: string): Observable<any> {
-    return this.http.get(`${this.SOCKET_URL}/chat/messages/${userId}`);
-  }
+  private apiUrl = `http://localhost:5000/chat`;
 
-  // 📨 Send a message (emit socket event)
-  sendMessage(message: any) {
-    this.socket.emit('sendMessage', message);
-  }
+  constructor(private http: HttpClient, private authService: AuthUserService) {}
 
-  // 📥 Receive incoming messages
-  receiveMessage(): Observable<any> {
-    return new Observable(observer => {
-      this.socket.on('newMessage', (data) => {
-        observer.next(data);
-      });
+  private getHeaders() {
+    return new HttpHeaders({
+      Authorization: `Bearer ${this.authService.getToken()}`,
     });
   }
 
-  // 🔌 Optional: disconnect when not needed
-  disconnectSocket() {
-    if (this.socket) {
-      this.socket.disconnect();
-    }
+  getContacts() {
+    return this.http.get<any[]>(`${this.apiUrl}/contacts`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  getMessages(conversationId: string) {
+    return this.http.get<any[]>(`${this.apiUrl}/messages/${conversationId}`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  sendMessage(data: { receiverId: string; content: string }) {
+    return this.http.post(
+      `${this.apiUrl}/send`,
+      data,
+      { headers: this.getHeaders() }
+    );
+  }
+
+  markAsRead(conversationId: string) {
+    return this.http.post(
+      `${this.apiUrl}/read/${conversationId}`,
+      {},
+      { headers: this.getHeaders() }
+    );
   }
 }

@@ -13,12 +13,24 @@ import { CommonModule } from '@angular/common';
 })
 export class JobsComponent {
   jobs: any[] = [];
+  loading: boolean = true;
   constructor(private jobService :jobService) {}
 
-ngOnInit() {
-  this.jobService.getJobs().subscribe((data) => {
-    this.jobs = data;
-  });
-}
+  ngOnInit() {
+    this.fetchJobs();
+  }
+
+  fetchJobs() {
+    this.jobService.getJobs().subscribe({
+      next: (res) => {
+        this.jobs = res;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('❌ Error loading jobs:', err);
+        this.loading = false;
+      }
+    });
+  }
 
 }
